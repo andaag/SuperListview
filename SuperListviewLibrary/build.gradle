@@ -29,4 +29,13 @@ dependencies {
     compile 'com.android.support:support-v4:20.0.0'
 }
 
-apply from: '../maven_push.gradle'
+//apply from: '../maven_push.gradle'
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+        }
+    }
+}
+task install(dependsOn: uploadArchives)
